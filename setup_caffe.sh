@@ -28,3 +28,5 @@ wget http://us.download.nvidia.com/XFree86/Linux-x86_64/346.89/NVIDIA-Linux-x86_
 chmod +x driver.run
 sudo ./driver.run -s -N --dkms
 rm -f driver.run
+
+#

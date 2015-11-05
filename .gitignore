@@ -1,0 +1,4 @@
+cuda/
+.*.swp
+cudnn.tgz
+
