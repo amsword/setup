@@ -21,6 +21,7 @@ filetype off                  " required
 " " plugin on GitHub repo
  "Plugin 'klen/python-mode'
  Plugin 'Valloric/YouCompleteMe'
+ Plugin 'rdnetto/YCM-Generator'
  Plugin 'oplatek/Conque-Shell'
  Plugin 'amsword/comments.vim'
  "Plugin 'Shougo/neocomplcache.vim'
