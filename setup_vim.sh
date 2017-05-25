@@ -4,7 +4,7 @@ sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
     python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git cmake
 
-sudo apt-get remove -y vim vim-runtime gvim
+sudo apt-get remove -y vim vim-runtime gvim rake
 
 git clone https://github.com/vim/vim.git
 cd vim/src
@@ -36,10 +36,8 @@ vim +PluginInstall +qall
 # install the pre-compiled clang-3.9, which is required by ycm
 wget http://releases.llvm.org/4.0.0/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
 tar xf clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
-cd clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
 
 # setup the ycm
-cd ~
 mkdir ycm_build
 cd ycm_build
 cmake -G "Unix Makefiles" \
