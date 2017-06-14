@@ -11,6 +11,7 @@ Plugin 'oplatek/Conque-Shell'
 Plugin 'amsword/comments.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'mkitt/tabline.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -67,7 +68,7 @@ nmap td :tabclose<CR>
 "color ron 
 syntax enable
 set background=dark
-" colorscheme solarized
+colorscheme solarized
 set modifiable
 let mapleader=","
 set backspace=indent,eol,start
@@ -100,30 +101,8 @@ function! Tab_Or_Complete()
 
 nmap ,lcd :lcd %:p:h<CR>
 
-"trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-"
 let g:CommandTMaxFiles=50000
-"if has("terminfo")
-    "let &t_Co=16
-    "let &t_AB="\<Esc>[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm"
-    "let &t_AF="\<Esc>[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm"
-"else
-    "let &t_Co=16
-    "let &t_Sf="\<Esc>[3%dm"
-    "let &t_Sb="\<Esc>[4%dm"
-"endif
-if exists("+showtabline")
-    set stal=2
-    map    <C-Tab>    :tabnext<CR>
-    imap   <C-Tab>    <C-O>:tabnext<CR>
-    map    <C-S-Tab>  :tabprev<CR>
-    imap   <C-S-Tab>  <C-O>:tabprev<CR>
-endif
 
 let g:ConqueGdb_Leader = '\'
 let g:pymode_warnings = 1
+set wrap
