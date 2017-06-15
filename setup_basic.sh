@@ -2,6 +2,7 @@ set -e
 # install packages
 sudo apt-get update
 sudo apt-get install -y \
+    git \
     build-essential \
     ipython \
     lsb-release \
@@ -18,6 +19,9 @@ sudo dpkg-reconfigure locales
 
 sudo pip install pyyaml
 sudo pip install lmdb
+
+git config --global user.email "jianfengwang@outlook.com" && \
+        git config --global user.name "Jianfeng Wang"
 
 # setup the ipython configuration 
 ipython profile create 

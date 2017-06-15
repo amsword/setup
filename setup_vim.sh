@@ -36,7 +36,6 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
 rm -rf vim
 git clone https://github.com/vim/vim.git
 cd vim/src
-# the version of python might be bumpped, pls change it accordingly
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp \
