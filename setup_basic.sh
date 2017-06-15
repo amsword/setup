@@ -6,6 +6,7 @@ sudo pip install pyyaml
 sudo pip install lmdb
 
 sudo apt-get install -y silversearcher-ag
+sudo apt-get install -y lsb-release
 
 # setup the ipython configuration 
 ipython profile create 
