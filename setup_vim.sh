@@ -1,4 +1,6 @@
+set -e
 # based on https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+sudo apt-get update
 sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
     libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
@@ -30,8 +32,10 @@ sudo update-alternatives --set vi /usr/bin/vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 #setup the plugin
+
+cd ~/code/setup
 cp .vimrc ~/
-vim +PluginInstall +qall
+vim -i None +PluginInstall +qall
 
 # install the pre-compiled clang-3.9, which is required by ycm
 wget http://releases.llvm.org/4.0.0/clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
@@ -47,4 +51,5 @@ cmake --build . --target ycm_core --config Release
 
 #setup the command t
 cd ~/.vim/bundle/command-t
+sudo apt-get install -y rake ruby-dev
 rake make

@@ -1,2 +1,4 @@
-sudo apt-get install tmux
+set -e
+idfs
+sudo apt-get install -y tmux
 cp .tmux.conf ~/
