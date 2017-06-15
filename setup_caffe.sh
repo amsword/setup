@@ -32,7 +32,7 @@ sudo apt-get install -y \
     rake \
     gdb \
     bc \
-    ibclang-dev
+    libclang-dev
 
 sudo pip install pygments
 sudo pip install django
