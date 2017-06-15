@@ -1,13 +1,30 @@
 set -e
 # based on https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 sudo apt-get update
-sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
-    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-    python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git cmake
-sudo apt-get install -y build-essential
-sudo apt-get remove -y vim vim-runtime gvim rake
-sudo apt-get install -y rake ruby-dev
+sudo apt-get install -y  \
+    libncurses5-dev \
+    libgnome2-dev \
+    libgnomeui-dev \
+    libgtk2.0-dev \
+    libatk1.0-dev \
+    libbonoboui2-dev \
+    libcairo2-dev \
+    libx11-dev \
+    libxpm-dev \
+    libxt-dev \
+    python-dev \
+    python3-dev \
+    ruby-dev \
+    lua5.1 \
+    lua5.1-dev \
+    libperl-dev \
+    git \
+    cmake \
+    build-essential \
+    rake \
+    ruby-dev
+
+sudo apt-get remove -y vim vim-runtime gvim
 
 # install gcc4.9 or higher since ycm requires that
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
