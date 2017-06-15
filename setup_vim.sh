@@ -29,7 +29,7 @@ sudo apt-get remove -y vim vim-runtime gvim
 # install gcc4.9 or higher since ycm requires that
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo apt-get update
-sudo apt-get install gcc-5 g++-5
+sudo apt-get install -y gcc-5 g++-5
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
     60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 
@@ -64,7 +64,7 @@ vim +PluginInstall +qall
 
 CLANG_FILE_NAME="clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04" 
 CLANG_TAR_FILE_NAME=${CLANG_FILE_NAME}.tar.xz
-rm $CLANG_TAR_FILE_NAME
+rm -f $CLANG_TAR_FILE_NAME
 wget http://releases.llvm.org/4.0.0/$CLANG_TAR_FILE_NAME
 tar xf $CLANG_TAR_FILE_NAME 
 
