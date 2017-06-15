@@ -5,7 +5,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/Conque-GDB'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'amsword/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'oplatek/Conque-Shell'
 Plugin 'amsword/comments.vim'
