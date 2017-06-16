@@ -1,6 +1,7 @@
 set -e
 
 if [ ! -d "$HOME/code/py-faster-rcnn" ]; then
+    cd $HOME/code
     git clone --recursive git@github.com:amsword/py-faster-rcnn.git
 fi
 
