@@ -17,8 +17,7 @@ sudo apt-get install -y \
 sudo locale-gen en_US en_US.UTF-8 hu_HU hu_HU.UTF-8 
 sudo dpkg-reconfigure locales
 
-sudo pip install pyyaml
-sudo pip install lmdb
+sudo pip install -r requirements.txt
 
 git config --global user.email "jianfengwang@outlook.com" && \
         git config --global user.name "Jianfeng Wang"

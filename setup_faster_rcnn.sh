@@ -11,6 +11,9 @@ echo "USE_CUDNN := 1" >> Makefile.config
 make -j
 make pycaffe
 
+cd ~/code/py-faster-rcnn/lib
+make
+
 cd ~/code/py-faster-rcnn
 
 ./data/scripts/fetch_faster_rcnn_models.sh
