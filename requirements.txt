@@ -1,4 +1,7 @@
 easydict
 pyyaml
 lmdb
+pygments
+django
+Cython
 
