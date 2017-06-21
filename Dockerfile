@@ -1,8 +1,9 @@
 FROM bvlc/caffe:gpu
 
 WORKDIR /app
-ADD . /app
-
+ADD requirements.txt /app
+ADD .tmux.conf /app
+ADD .vimrc_plugin /app
 RUN apt-get update && apt-get install -y \
         bc \
         build-essential \
@@ -89,39 +90,14 @@ RUN git clone https://github.com/vim/vim.git && \
     update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1 && \
     update-alternatives --set editor /usr/bin/vim && \
     update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1 && \
-    update-alternatives --set vi /usr/bin/vim
-    
-RUN addgroup --force-badname --gid  500000513 domainusers && \
-        adduser --force-badname --home /home/jianfw \
-            --shell /bin/bash --uid 519178854  -gecos '' \
-            jianfw --disabled-password --gid 500000513 && \
-        adduser jianfw sudo && \
-        echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
+    update-alternatives --set vi /usr/bin/vim && \
 
-USER jianfw
-
-RUN cp /app/.tmux.conf $HOME/
+RUN cp /app/.tmux.conf ~/
 
 RUN git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
 RUN cp /app/.vimrc_plugin $HOME/.vimrc && \
     vim +PluginInstall +qall
 
-ENV CLANG_FILE_NAME clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04
-ENV CLANG_TAR_FILE_NAME clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
-RUN cd /app && \
-    wget http://releases.llvm.org/4.0.0/$CLANG_TAR_FILE_NAME && \
-   tar xf $CLANG_TAR_FILE_NAME && \
-    mkdir -p /app/ycm_build && \
-   cd /app/ycm_build && \
-   cmake -G "Unix Makefiles" \
-        -DPATH_TO_LLVM_ROOT=/app/$CLANG_FILE_NAME . \
-        $HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp && \
-   cmake --build . --target ycm_core --config Release
-
-RUN cp /app/.vimrc ~/.vimrc
-
-RUN cd $HOME/.vim/bundle/command-t && \
-    rake make
-
+RUN rm /app/* -rf
 CMD ["sleep", "infinity"]
