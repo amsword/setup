@@ -90,7 +90,7 @@ RUN git clone https://github.com/vim/vim.git && \
     update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1 && \
     update-alternatives --set editor /usr/bin/vim && \
     update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1 && \
-    update-alternatives --set vi /usr/bin/vim && \
+    update-alternatives --set vi /usr/bin/vim
 
 RUN cp /app/.tmux.conf ~/
 
