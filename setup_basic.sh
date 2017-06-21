@@ -2,8 +2,9 @@ set -e
 # install packages
 sudo apt-get update
 sudo apt-get install -y \
-    git \
     build-essential \
+    clang
+    git \
     ipython \
     lsb-release \
     python-dev \
@@ -12,7 +13,7 @@ sudo apt-get install -y \
     rake \
     ruby-dev \
     silversearcher-ag \
-    software-properties-common 
+    software-properties-common
 
 sudo locale-gen en_US en_US.UTF-8 hu_HU hu_HU.UTF-8 
 sudo dpkg-reconfigure locales
