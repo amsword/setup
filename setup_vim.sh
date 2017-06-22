@@ -26,13 +26,6 @@ sudo apt-get install -y  \
 
 sudo apt-get remove -y vim vim-runtime gvim
 
-# install gcc4.9 or higher since ycm requires that
-sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install -y gcc-5 g++-5
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
-    60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
-
 rm -rf vim
 git clone https://github.com/vim/vim.git
 cd vim/src
@@ -57,6 +50,13 @@ rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 #setup the plugin
+# install gcc4.9 or higher since ycm requires that
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install -y gcc-5 g++-5
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
+    60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+
 cd ~/code/setup
 cp .vimrc_plugin ~/.vimrc
 vim +PluginInstall +qall

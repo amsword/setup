@@ -6,13 +6,15 @@ if [ ! -d "$HOME/code/py-faster-rcnn" ]; then
 fi
 
 cd ~/code/py-faster-rcnn/caffe-fast-rcnn
-cp Makefile.config.example Makefile.config
-echo "WITH_PYTHON_LAYER := 1" >> Makefile.config
-echo "USE_CUDNN := 1" >> Makefile.config
+if [ ! -f "Makefile.config" ]; then
+    cp Makefile.config.example Makefile.config
+    echo "WITH_PYTHON_LAYER := 1" >> Makefile.config
+    echo "USE_CUDNN := 1" >> Makefile.config
 
-# for ubuntu 16.04
-echo "INCLUDE_DIRS += /usr/include/hdf5/serial" >> Makefile.config
-echo "LIBRARY_DIRS += /usr/lib/x86_64-linux-gnu/hdf5/serial" >> Makefile.config
+    # for ubuntu 16.04
+    echo "INCLUDE_DIRS += /usr/include/hdf5/serial" >> Makefile.config
+    echo "LIBRARY_DIRS += /usr/lib/x86_64-linux-gnu/hdf5/serial" >> Makefile.config
+fi
 
 make -j
 make pycaffe

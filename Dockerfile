@@ -3,7 +3,9 @@ FROM bvlc/caffe:gpu
 WORKDIR /app
 ADD requirements.txt /app
 ADD .tmux.conf /app
-ADD .vimrc_plugin /app
+ADD .vimrc_plugin_global /app
+ADD .vimrc_global /app
+
 RUN apt-get update && apt-get install -y \
         bc \
         build-essential \
@@ -64,11 +66,15 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install -r requirements.txt
 
+# install g++/gcc 5
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get update && \
     apt-get install -y gcc-5 g++-5 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
         60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+
+# config the tmux for all users by default
+RUN cp /app/.tmux.conf /etc/skel/
 
 # remove the older vim and we will install a newer one
 RUN apt-get remove -y vim vim-runtime gvim
@@ -92,12 +98,35 @@ RUN git clone https://github.com/vim/vim.git && \
     update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1 && \
     update-alternatives --set vi /usr/bin/vim
 
-RUN cp /app/.tmux.conf ~/
+# clone the Vundle into a global position for all users
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /etc/vim/bundle/Vundle.vim
 
-RUN git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+WORKDIR /app
+ADD requirements.txt /app
+ADD .tmux.conf /app
+ADD .vimrc_plugin_global /app
+ADD .vimrc_global /app
 
-RUN cp /app/.vimrc_plugin $HOME/.vimrc && \
+RUN cp /app/.vimrc_plugin_global $HOME/.vimrc && \
     vim +PluginInstall +qall
 
-RUN rm /app/* -rf
+# install ycm
+ENV CLANG_FILE_NAME clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04
+ENV CLANG_TAR_FILE_NAME ${CLANG_FILE_NAME}.tar.xz
+RUN rm -f $CLANG_TAR_FILE_NAME && \
+	wget http://releases.llvm.org/4.0.0/${CLANG_TAR_FILE_NAME} && \
+	tar xf $CLANG_TAR_FILE_NAME && \
+	rm -rf ycm_build && \
+	mkdir ycm_build && \
+	cd ycm_build && \
+	cmake -G "Unix Makefiles" \
+		-DPATH_TO_LLVM_ROOT=../${CLANG_FILE_NAME} . \
+		/etc/vim/bundle/Vundle.vim/YouCompleteMe/third_party/ycmd/cpp && \
+	cmake --build . --target ycm_core --config Release
+
+RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
+    rake make
+
+RUN cp /app/.vimrc_global ~/.vimrc
+
 CMD ["sleep", "infinity"]
