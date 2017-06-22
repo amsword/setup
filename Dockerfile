@@ -127,6 +127,9 @@ RUN rm -f $CLANG_TAR_FILE_NAME && \
 RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
     rake make
 
-RUN cp /app/.vimrc_global ~/.vimrc
+RUN cp /app/.vimrc_global /etc/skel/
+
+RUN rm /app/* -rf
+RUN rm /root/* -rf
 
 CMD ["sleep", "infinity"]
