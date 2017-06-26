@@ -60,8 +60,6 @@ augroup filetype
   au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
 
-map ,j :!ctags -R -I --c++-kinds=+p --fields=+iaS --extra=+q . <CR><CR>
-
 nmap t% :tabedit %<CR>
 nmap td :tabclose<CR>
 
@@ -75,20 +73,6 @@ set backspace=indent,eol,start
 let g:ConqueTerm_ReadUnfocused = 1
 noremap <leader>m :MaximizerToggle<CR>
 
-"Convert slashes to backslashes for Windows.
-if has('win32')
-nmap ,cs :let @*=substitute(expand("%"), "/", "\\", "g")<CR>
-nmap ,cl :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>
-
-" This will copy the path in 8.3 short format, for DOS and Windows 9x
-nmap ,c8 :let @*=substitute(expand("%:p:8"), "/", "\\", "g")<CR>
-else
-nmap ,cs :let @*=expand("%")<CR>
-nmap ,cl :let @*=expand("%:p")<CR>
-endif
-
-
-
 function! Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
 	return "\<C-N>"
@@ -101,8 +85,16 @@ function! Tab_Or_Complete()
 
 nmap ,lcd :lcd %:p:h<CR>
 
-let g:CommandTMaxFiles=50000
+let g:CommandTMaxFiles=500000
+let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc"
 
 let g:ConqueGdb_Leader = '\'
-let g:pymode_warnings = 1
+let g:ConqueGdb_DeleteBreak = g:ConqueGdb_Leader . 'd'
 set wrap
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+
+let g:netrw_sizestyle= "h"
+
