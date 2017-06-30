@@ -10,16 +10,50 @@ sudo apt-get install -y \
     python-dev \
     python-pip \
     python-software-properties \
+    python-opencv \
     rake \
     ruby-dev \
     silversearcher-ag \
-    software-properties-common
+    software-properties-common \
+    libprotobuf-dev \
+    libleveldb-dev \
+    libsnappy-dev \
+    libopencv-dev \
+    libboost-all-dev \
+    libhdf5-serial-dev \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    liblmdb-dev \
+    protobuf-compiler \
+    python-numpy \
+    python-scipy \
+    python-matplotlib \
+    python-sklearn \
+    python-skimage \
+    python-h5py \
+    python-protobuf \
+    python-leveldb \
+    python-networkx \
+    python-nose \
+    python-pandas \
+    python-gflags \
+    python-opencv \
+    ipython \
+    libhdf5-serial-dev \
+    cmake \
+    libatlas-base-dev \
+    python-pip \
+    rake \
+    gdb \
+    bc \
+    libclang-dev \
+    tmux
+
 
 sudo locale-gen en_US en_US.UTF-8 hu_HU hu_HU.UTF-8 
 sudo dpkg-reconfigure locales
 
-git config --global user.email "jianfengwang@outlook.com"
-git config --global user.name "Jianfeng Wang"
+cp .tmux.conf ~/
 
 sudo pip install -r requirements.txt
 

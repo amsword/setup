@@ -53,6 +53,7 @@ RUN apt-get update && apt-get install -y \
         python-nose \
         python-pandas \
         python-gflags \
+        python-opencv \
         python-software-properties \
         python3-dev \
         ipython \
@@ -123,7 +124,8 @@ RUN rm -f $CLANG_TAR_FILE_NAME && \
 	cmake -G "Unix Makefiles" \
 		-DPATH_TO_LLVM_ROOT=../${CLANG_FILE_NAME} . \
 		/etc/vim/bundle/Vundle.vim/YouCompleteMe/third_party/ycmd/cpp && \
-	cmake --build . --target ycm_core --config Release
+	cmake --build . --target ycm_core --config Release && \
+    rm -rf $CLANG_TAR_FILE_NAME
 
 RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
     rake make

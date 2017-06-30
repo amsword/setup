@@ -4,5 +4,4 @@ lmdb
 pygments
 django
 Cython
-opencv-python 
 
