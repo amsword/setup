@@ -1,4 +1,4 @@
-FROM bvlc/caffe:gpu
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
 
 WORKDIR /app
 ADD requirements.txt /app
@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
         libboost-all-dev \
         libleveldb-dev \
         libopencv-dev \
+        libopenblas-dev \
         libprotobuf-dev \
         libsnappy-dev \
         libhdf5-serial-dev \
@@ -24,11 +25,11 @@ RUN apt-get update && apt-get install -y \
         liblmdb-dev \
         libclang-dev \
         libncurses5-dev \
+        libbonoboui2-dev \
+        libcairo2-dev \
         libgnome2-dev \
         libgnomeui-dev \
         libgtk2.0-dev \
-        libbonoboui2-dev \
-        libcairo2-dev \
         libx11-dev \
         libxpm-dev \
         libxt-dev \
