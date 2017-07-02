@@ -49,6 +49,8 @@ sudo update-alternatives --set vi /usr/bin/vim
 rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+python generate_vimrc.py
+
 #setup the plugin
 # install gcc4.9 or higher since ycm requires that
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test

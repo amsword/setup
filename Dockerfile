@@ -3,8 +3,9 @@ FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
 WORKDIR /app
 ADD requirements.txt /app
 ADD .tmux.conf /app
-ADD .vimrc_plugin_global /app
-ADD .vimrc_global /app
+ADD .vimrc_customize_template /app
+ADD .vimrc_plugin_template /app
+ADD generate_vimrc.py /app
 
 RUN apt-get update && apt-get install -y \
         bc \
@@ -103,11 +104,7 @@ RUN git clone https://github.com/vim/vim.git && \
 # clone the Vundle into a global position for all users
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /etc/vim/bundle/Vundle.vim
 
-WORKDIR /app
-ADD requirements.txt /app
-ADD .tmux.conf /app
-ADD .vimrc_plugin_global /app
-ADD .vimrc_global /app
+RUN python generate_vimrc.py
 
 RUN cp /app/.vimrc_plugin_global $HOME/.vimrc && \
     vim +PluginInstall +qall
