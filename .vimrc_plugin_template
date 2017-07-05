@@ -12,5 +12,7 @@ Plugin 'amsword/comments.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'mkitt/tabline.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'amsword/vim-snippets' 
 call vundle#end()            " required
 filetype plugin indent on    " required
