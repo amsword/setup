@@ -14,5 +14,6 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'mkitt/tabline.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'amsword/vim-snippets' 
+Plugin 'szw/vim-maximizer'
 call vundle#end()            " required
 filetype plugin indent on    " required

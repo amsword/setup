@@ -99,7 +99,8 @@ RUN git clone https://github.com/vim/vim.git && \
     update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1 && \
     update-alternatives --set editor /usr/bin/vim && \
     update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1 && \
-    update-alternatives --set vi /usr/bin/vim
+    update-alternatives --set vi /usr/bin/vim && \
+    cd ../../
 
 # clone the Vundle into a global position for all users
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /etc/vim/bundle/Vundle.vim
