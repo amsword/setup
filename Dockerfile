@@ -65,6 +65,7 @@ RUN apt-get update && apt-get install -y \
         ruby-dev \
         silversearcher-ag \
         software-properties-common \
+        wget \
         tmux
 
 RUN pip install -r requirements.txt
