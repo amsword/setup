@@ -15,5 +15,6 @@ Plugin 'mkitt/tabline.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'amsword/vim-snippets' 
 Plugin 'szw/vim-maximizer'
+Plugin 'vim-scripts/vim-auto-save'
 call vundle#end()            " required
 filetype plugin indent on    " required
