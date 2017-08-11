@@ -126,6 +126,10 @@ RUN rm -f $CLANG_TAR_FILE_NAME && \
 	cmake --build . --target ycm_core --config Release && \
     rm -rf $CLANG_TAR_FILE_NAME
 
+RUN git clone https://github.com/NVIDIA/nccl.git && \
+        cd nccl && make -j install && \
+        cd .. && rm -rf nccl
+
 RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
     rake make
 
