@@ -4,4 +4,8 @@ lmdb
 pygments
 django
 Cython
+progressbar
+ete2
+numpy
+scipy
 

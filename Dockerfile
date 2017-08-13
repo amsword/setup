@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
         gdb \
         git \
         ipython \
+        gfortran \
         libboost-all-dev \
         libleveldb-dev \
         libopencv-dev \
@@ -42,8 +43,6 @@ RUN apt-get update && apt-get install -y \
         python-pip \
         protobuf-compiler \
         python-pip \
-        python-numpy \
-        python-scipy \
         python-matplotlib \
         python-sklearn \
         python-skimage \
@@ -57,7 +56,6 @@ RUN apt-get update && apt-get install -y \
         python-opencv \
         python-software-properties \
         python3-dev \
-        ipython \
         libhdf5-serial-dev \
         cmake \
         libatlas-base-dev \
