@@ -4,9 +4,9 @@ if __name__ == '__main__':
     with open(vimrc_plugin, 'r') as fp:
         plugins = fp.read()
     runtime_path = '/etc/vim/bundle/Vundle.vim'
-    global_plugins = plugins.format(runtime_path)
+    global_plugins = plugins.format(runtime_path, "'" + runtime_path + "'")
     runtime_path = '~/.vim/bundle/Vundle.vim'
-    local_plugins = plugins.format(runtime_path)
+    local_plugins = plugins.format(runtime_path, '')
 
     with open(vimrc_customize, 'r') as fp:
         customize = fp.read()

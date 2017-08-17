@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+={0}
-call vundle#begin()
+call vundle#begin({1})
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/Conque-GDB'
 Plugin 'altercation/vim-colors-solarized'
