@@ -68,7 +68,8 @@ function! Tab_Or_Complete()
 nmap ,lcd :lcd %:p:h<CR>
 
 let g:CommandTMaxFiles=500000
-let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.d"
+let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
+            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d"
 
 let g:ConqueGdb_Leader = '\'
 let g:ConqueGdb_DeleteBreak = g:ConqueGdb_Leader . 'd'
