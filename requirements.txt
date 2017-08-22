@@ -8,4 +8,5 @@ progressbar
 ete2
 numpy
 scipy
-
+nltk
+psutil
