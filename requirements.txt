@@ -1,9 +1,12 @@
+ipython
+ipdb
 easydict
 pyyaml
 lmdb
 pygments
 django
 Cython
+pip
 progressbar
 ete2
 numpy

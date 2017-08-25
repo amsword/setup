@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
         cmake \
         gdb \
         git \
-        ipython \
         gfortran \
         libboost-all-dev \
         libleveldb-dev \
@@ -66,7 +65,7 @@ RUN apt-get update && apt-get install -y \
         wget \
         tmux
 
-RUN pip install -r requirements.txt
+RUN pip install --upgrade -r requirements.txt
 
 # install g++/gcc 5
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
