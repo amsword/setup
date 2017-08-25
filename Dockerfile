@@ -44,8 +44,6 @@ RUN apt-get update && apt-get install -y \
         python-pip \
         python-matplotlib \
         python-sklearn \
-        python-skimage \
-        python-h5py \
         python-protobuf \
         python-leveldb \
         python-networkx \

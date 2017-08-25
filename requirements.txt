@@ -2,6 +2,8 @@ ipython
 ipdb
 easydict
 pyyaml
+h5py
+scikit-image
 lmdb
 pygments
 django
