@@ -64,6 +64,7 @@ RUN apt-get update && apt-get install -y \
         tmux
 
 RUN pip install --upgrade pip
+RUN pip install --upgrade ipython
 RUN pip install --upgrade -r requirements.txt
 
 # install g++/gcc 5
