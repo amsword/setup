@@ -6,6 +6,7 @@ ADD .tmux.conf /app
 ADD .vimrc_customize_template /app
 ADD .vimrc_plugin_template /app
 ADD generate_vimrc.py /app
+ADD mkl_silent.cfg /app
 
 RUN apt-get update && apt-get install -y \
         bc \
@@ -123,16 +124,38 @@ RUN rm -f $CLANG_TAR_FILE_NAME && \
 	cmake --build . --target ycm_core --config Release && \
     rm -rf $CLANG_TAR_FILE_NAME
 
+# install command-t for vim
+RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
+    rake make
+
+# install mkl
+ENV MKL_BASE_NAME l_mkl_2017.3.196
+ENV MKL_FILE ${MKL_BASE_NAME}.tgz
+ENV MKL_PATH_FILE /etc/ld.so.conf.d/intel_mkl.conf
+ENV MKL_URL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11544/${MKL_FILE}
+RUN wget $MKL_URL && \
+    tar -zxvf ${MKL_FILE} && \
+    cp mkl_silent.cfg ${MKL_BASE_NAME}/ && \
+    cd ${MKL_BASE_NAME} && \
+    sh install.sh -s mkl_silent.cfg && \
+    cd .. && \
+    touch ${MKL_PATH_FILE} && \
+    echo "/opt/intel/lib/intel64" >> ${MKL_PATH_FILE} && \
+    echo "/opt/intel/mkl/lib/intel64" >> ${MKL_PATH_FILE} && \
+    sudo ldconfig && \
+    rm ${MKL_FILE} && \
+    rm -rf ${MKL_BASE_NAME}
+
+# install nccl for gpu parallel
 RUN git clone https://github.com/NVIDIA/nccl.git && \
         cd nccl && make -j install && \
         cd .. && rm -rf nccl
 
-RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
-    rake make
 
 RUN cp /app/.vimrc_global /etc/skel/.vimrc
 
 RUN rm /app/* -rf
 RUN rm /root/* -rf
+
 
 CMD ["sleep", "infinity"]
