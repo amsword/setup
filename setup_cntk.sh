@@ -1,5 +1,6 @@
+set -e
 MKL_FILE_NAME=CNTKCustomMKL-Linux-3.tgz
-MKL_URL=https://www.microsoft.com/en-us/cognitive-toolkit/wp-content/uploads/sites/3/2017/05/MKL_FILE_NAME
+MKL_URL=https://amsword.blob.core.windows.net/setup/$MKL_FILE_NAME
 MKL_TARGET_FOLDER=/usr/local/CNTKCustomMKL
 OMP_FILE=openmpi-1.10.3.tar.gz
 OMP_URL=https://www.open-mpi.org/software/ompi/v1.10/downloads/$OMP_FILE
@@ -18,15 +19,16 @@ CUDNN_FILE=cudnn-8.0-linux-x64-v6.0.tgz
 CUDNN_URL=http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/$CUDNN_FILE
 
 
+# setup MKL
 if [ ! -f $MKL_FILE_NAME ]; then
     wget $MKL_URL
 fi
-
 if [ ! -d $MKL_TARGET_FOLDER ]; then
     sudo mkdir $MKL_TARGET_FOLDER
     sudo tar -xzf CNTKCustomMKL-Linux-3.tgz -C $MKL_TARGET_FOLDER 
 fi
 
+# setup MPI
 if [ ! -f $OMP_FILE ]; then
     wget $OMP_URL
     tar -xzvf ./openmpi-1.10.3.tar.gz
@@ -39,6 +41,7 @@ fi
 export PATH=/usr/local/mpi/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/mpi/lib:$LD_LIBRARY_PATH
 
+# protobuf
 if [ ! -f $PROTOL_BUF_FILE ]; then
     sudo apt-get install -y curl
     wget $PROTOL_BUF_URL
@@ -76,9 +79,20 @@ fi
 
 if [ ! -d $CUB_FOLDER ]; then
     wget $CUB_URL
-    uzip ./${CUB_FOLDER}
+    unzip ./${CUB_NAME_IN_URL}
     sudo cp -r $CUB_FOLDER /usr/local
 fi
+
+# opencv
+wget https://github.com/Itseez/opencv/archive/3.1.0.zip
+unzip 3.1.0.zip
+cd opencv-3.1.0
+mkdir release
+cd release
+cmake -D WITH_CUDA=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv-3.1.0 ..
+make all
+sudo make install
+cd ../../
 
 if [ ! -f $CUDNN_FILE ]; then
     wget $CUDNN_URL
@@ -88,6 +102,31 @@ if [ ! -f $CUDNN_FILE ]; then
 fi
 export LD_LIBRARY_PATH=/usr/local/cudnn-6.0/cuda/lib64:$LD_LIBRARY_PATH
 
-s#udo apt-get install zlib1g-dev
+sudo apt-get install zlib1g-dev
+
+# setup the nccl
+git clone https://github.com/NVIDIA/nccl.git && \
+        cd nccl && sudo make -j install && \
+        cd .. && rm -rf nccl
+
+# setup some magic path
+sudo mkdir -p /usr/src/gdk/nvml/lib && \
+    sudo cp -av /usr/local/cuda/lib64/stubs/libnvidia-ml* /usr/src/gdk/nvml/lib && \
+    sudo mkdir -p /usr/include/nvidia/gdk && \
+    sudo cp -av /usr/local/cuda/include/nvml.h /usr/include/nvidia/gdk/nvml.h
+
+# download the cntk and build
+mkdir -p ~/code
+cd ~/code
+git clone https://github.com/Microsoft/cntk
+cd cntk
+git submodule update --init -- Source/Multiverso
+mkdir -p build/release
+cd build/release
+../../configure
+make -j all
+
+
+
 
 
