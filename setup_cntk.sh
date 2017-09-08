@@ -104,6 +104,7 @@ if [ ! -f $CUDNN_FILE ]; then
     tar -xzvf ./$CUDNN_FILE
     sudo mkdir -p /usr/local/cudnn-6.0
     sudo cp -r cuda /usr/local/cudnn-6.0
+    rm cuda -rf
 fi
 
 export LD_LIBRARY_PATH=/usr/local/cudnn-6.0/cuda/lib64:$LD_LIBRARY_PATH
