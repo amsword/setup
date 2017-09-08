@@ -58,7 +58,7 @@ if [ ! -f $PROTOL_BUF_FILE ]; then
     cd ..
 fi
 
-if [ ! -f $LIBZIP_FILE ]; then
+if [ ! -d $LIBZIP_FOLDER ]; then
     wget $LIBZIP_URL
     tar -xzvf ./$LIBZIP_FILE
     cd $LIBZIP_FOLDER
