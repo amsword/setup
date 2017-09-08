@@ -9,8 +9,11 @@ PROTOL_BUF_URL=https://github.com/google/protobuf/archive/$PROTOL_BUF_FILE
 LIBZIP_FOLDER=libzip-1.1.2
 LIBZIP_FILE=${LIBZIP_FOLDER}.tar.gz
 LIBZIP_URL=http://nih.at/libzip/$LIBZIP_FILE
+
+# normally boost version is 1.54 
 BOOST_FOLDER=boost_1_60_0
 BOOST_URL=https://sourceforge.net/projects/boost/files/boost/1.60.0/${BOOST_FOLDER}.tar.gz/download
+
 CUB_VERSION=1.4.1
 CUB_FOLDER=cub-${CUB_VERSION}
 CUB_NAME_IN_URL=${CUB_VERSION}.zip
@@ -50,9 +53,9 @@ if [ ! -f $PROTOL_BUF_FILE ]; then
     ./autogen.sh
     ./configure CFLAGS=-fPIC CXXFLAGS=-fPIC --disable-shared \
         --prefix=/usr/local/protobuf-3.1.0
-    cd ..
     make -j $(nproc)
     sudo make install
+    cd ..
 fi
 
 if [ ! -f $LIBZIP_FILE ]; then
@@ -84,30 +87,35 @@ if [ ! -d $CUB_FOLDER ]; then
 fi
 
 # opencv
-wget https://github.com/Itseez/opencv/archive/3.1.0.zip
-unzip 3.1.0.zip
-cd opencv-3.1.0
-mkdir release
-cd release
-cmake -D WITH_CUDA=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv-3.1.0 ..
-make all
-sudo make install
-cd ../../
+if [ ! -d 'opencv-3.1.0' ]; then
+    wget https://github.com/Itseez/opencv/archive/3.1.0.zip
+    unzip 3.1.0.zip
+    cd opencv-3.1.0
+    mkdir release
+    cd release
+    cmake -D WITH_CUDA=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv-3.1.0 ..
+    make all
+    sudo make install
+    cd ../../
+fi
 
 if [ ! -f $CUDNN_FILE ]; then
     wget $CUDNN_URL
     tar -xzvf ./$CUDNN_FILE
-    sudo mkdir /usr/local/cudnn-6.0
+    sudo mkdir -p /usr/local/cudnn-6.0
     sudo cp -r cuda /usr/local/cudnn-6.0
 fi
+
 export LD_LIBRARY_PATH=/usr/local/cudnn-6.0/cuda/lib64:$LD_LIBRARY_PATH
 
 sudo apt-get install zlib1g-dev
 
 # setup the nccl
-git clone https://github.com/NVIDIA/nccl.git && \
-        cd nccl && sudo make -j install && \
-        cd .. && rm -rf nccl
+if [ ! -d 'nccl' ]; then
+    git clone https://github.com/NVIDIA/nccl.git && \
+            cd nccl && sudo make -j install && \
+            cd .. && rm -rf nccl
+fi
 
 # setup some magic path
 sudo mkdir -p /usr/src/gdk/nvml/lib && \
@@ -121,12 +129,10 @@ cd ~/code
 git clone https://github.com/Microsoft/cntk
 cd cntk
 git submodule update --init -- Source/Multiverso
+# the latest version has some bug
+git checkout -b tmp 7d66c47f613cf2101b72652671e9bb502d3a03cd
 mkdir -p build/release
 cd build/release
 ../../configure
 make -j all
-
-
-
-
 
