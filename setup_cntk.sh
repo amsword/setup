@@ -114,7 +114,7 @@ sudo apt-get install zlib1g-dev
 if [ ! -d 'nccl' ]; then
     git clone https://github.com/NVIDIA/nccl.git && \
             cd nccl && sudo make -j install && \
-            cd .. && rm -rf nccl
+            cd .. && sudo rm -rf nccl
 fi
 
 # setup some magic path
@@ -129,7 +129,7 @@ cd ~/code
 git clone https://github.com/Microsoft/cntk
 cd cntk
 git submodule update --init -- Source/Multiverso
-# the latest version has some bug
+# the latest version has some build issue
 git checkout -b tmp 7d66c47f613cf2101b72652671e9bb502d3a03cd
 mkdir -p build/release
 cd build/release
