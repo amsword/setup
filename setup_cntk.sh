@@ -46,7 +46,7 @@ export LD_LIBRARY_PATH=/usr/local/mpi/lib:$LD_LIBRARY_PATH
 
 # protobuf
 if [ ! -f $PROTOL_BUF_FILE ]; then
-    sudo apt-get install -y curl
+    sudo apt-get install -y curl autoconf
     wget $PROTOL_BUF_URL
     tar -xzf v3.1.0.tar.gz
     cd protobuf-3.1.0
