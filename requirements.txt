@@ -3,12 +3,14 @@ ipdb
 easydict
 pyyaml
 h5py
+future
 scikit-image
 lmdb
 pygments
 django
 Cython
 progressbar
+protobuf
 ete2
 numpy
 scipy
