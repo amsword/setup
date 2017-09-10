@@ -3,6 +3,7 @@ ipdb
 easydict
 pyyaml
 h5py
+hypothesis
 future
 scikit-image
 lmdb
