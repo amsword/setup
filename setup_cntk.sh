@@ -132,8 +132,13 @@ cd cntk
 git submodule update --init -- Source/Multiverso
 # the latest version has some build issue
 git checkout -b tmp 7d66c47f613cf2101b72652671e9bb502d3a03cd
+# install the swig for python
+/Tools/devInstall/Linux/install-swig.sh
 mkdir -p build/release
 cd build/release
-../../configure
+# compile for python
+../../configure --with-swig=/usr/local/swig-3.0.10
 make -j all
+cd ../../
+
 
