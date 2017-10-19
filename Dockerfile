@@ -52,6 +52,7 @@ RUN apt-get update && apt-get install -y \
         python-pandas \
         python-gflags \
         python-opencv \
+        python-qt4 \
         python-software-properties \
         python3-dev \
         libhdf5-serial-dev \
