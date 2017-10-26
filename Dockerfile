@@ -158,5 +158,8 @@ RUN cp /app/.vimrc_global /etc/skel/.vimrc
 RUN rm /app/* -rf
 RUN rm /root/* -rf
 
+# make this folder accessible
+RUN chmod 777 /app
+
 
 CMD ["sleep", "infinity"]

@@ -89,5 +89,6 @@ let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 let g:auto_save_silent = 1  " do not display the auto-save notification
 
 autocmd FileType cuda set ft=c
+let Tlist_Show_One_File = 1
 
 let g:ycm_confirm_extra_conf=0
