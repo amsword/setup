@@ -23,5 +23,7 @@ Plugin 'vim-scripts/syntastic'
 "Plugin 'LaTeX-Box-Team/LaTeX-Box' 
 "Plugin 'python-mode/python-mode' 
 Plugin 'vim-scripts/BufOnly.vim' 
+Plugin 'bling/vim-airline'
+Plugin 'majutsushi/tagbar'
 call vundle#end()            " required
 filetype plugin indent on    " required

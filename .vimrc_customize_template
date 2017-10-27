@@ -1,4 +1,3 @@
-set wrap
 set nocp
 inoremap jk <ESC>
 filetype plugin on
@@ -10,9 +9,12 @@ set shiftwidth=4
 set tw=79
 "set foldmethod=syntax
 map <F2> :retab <CR> :wq! <CR>
-let g:netrw_localrmdir="rm -r"
+let g:netrw_localrmdir="rm -rf"
 set nowrap
 "set statusline+=%F
+" 0: never shows the status bar
+" 1: show only if there are more than 2 window
+" 2: always show
 set laststatus=2
 set tags+=~/.vim/tags/cpp
 set tags+=./tags
@@ -54,6 +56,7 @@ let mapleader=","
 set backspace=indent,eol,start
 let g:ConqueTerm_ReadUnfocused = 1
 noremap <leader>m :MaximizerToggle<CR>
+noremap <leader>l :TagbarToggle<CR>
 
 function! Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
@@ -69,11 +72,10 @@ nmap ,lcd :lcd %:p:h<CR>
 
 let g:CommandTMaxFiles=500000
 let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
-            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d"
+            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d" . ",*/models/*"
 
 let g:ConqueGdb_Leader = '\'
 let g:ConqueGdb_DeleteBreak = g:ConqueGdb_Leader . 'd'
-set wrap
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
@@ -88,7 +90,11 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 let g:auto_save_silent = 1  " do not display the auto-save notification
 
+"set foldmethod=syntax
+
 autocmd FileType cuda set ft=c
 let Tlist_Show_One_File = 1
 
 let g:ycm_confirm_extra_conf=0
+let g:ctags_statusline=1 
+
