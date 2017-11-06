@@ -1,6 +1,7 @@
 # Setup
 
 Scripts to easily install the software in Ubuntu
+
 ## Dockerfile
 The docker is targeted for a develop environment for deep learning, especially for caffe. Pull it by
 ```shell
@@ -26,6 +27,7 @@ docker pull amsword/setup
         * click D on the file which is changed to show the different. 
         * Click U to revert the change. 
     * GCommit to commit a code change
+    
 ### Tmux
 * enter the tmux: tmux a -d -t id
     * -d: to detach the existing attached session. 
