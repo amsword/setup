@@ -50,7 +50,6 @@ sudo update-alternatives --set vi /usr/bin/vim
 rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-python generate_vimrc.py
 
 #setup the plugin
 # install gcc4.9 or higher since ycm requires that
@@ -60,6 +59,7 @@ sudo apt-get install -y gcc-5 g++-5
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
     60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 
+python generate_vimrc.py
 cd ~/code/setup
 cp .vimrc_plugin ~/.vimrc
 vim +PluginInstall +qall

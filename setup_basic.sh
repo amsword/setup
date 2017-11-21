@@ -7,10 +7,6 @@ sudo apt-get install -y \
     git \
     ipython \
     lsb-release \
-    python-dev \
-    python-pip \
-    python-software-properties \
-    python-opencv \
     rake \
     ruby-dev \
     silversearcher-ag \
@@ -26,7 +22,6 @@ sudo apt-get install -y \
     liblmdb-dev \
     protobuf-compiler \
     python-numpy \
-    python-scipy \
     python-matplotlib \
     python-sklearn \
     python-skimage \
@@ -38,6 +33,8 @@ sudo apt-get install -y \
     python-pandas \
     python-gflags \
     python-opencv \
+    python-dev \
+    python-software-properties \
     ipython \
     libhdf5-serial-dev \
     cmake \
