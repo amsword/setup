@@ -1,7 +1,10 @@
-sudo apt-get install -y wget
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.61-1_amd64.deb -O cuda-repo.deb
+apt-get install -y wget
+wget https://amsword.blob.core.windows.net/setup/cuda-repo-ubuntu1404-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb -O cuda-repo.deb
 dpkg -i cuda-repo.deb
-sudo apt-get update
-sudo apt-get install -y cuda
+apt-get update
+apt-get install -y cuda
 
 rm -f cuda-repo.deb
+
+wget https://amsword.blob.core.windows.net/setup/cuda-repo-ubuntu1404-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb -O cuda-patch.deb
+dpkg -i cuda-patch.deb
