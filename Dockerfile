@@ -38,6 +38,7 @@ RUN apt-get update && apt-get install -y \
         lsb-release \
         lua5.1 \
         lua5.1-dev \
+        libyaml-dev \
         libperl-dev \
         python-dev \
         python-pip \
@@ -68,6 +69,8 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --upgrade pip
 RUN pip install --upgrade ipython
 RUN pip install --upgrade -r requirements.txt
+
+RUN pip install pyyaml --upgrade --force
 
 # install g++/gcc 5
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \

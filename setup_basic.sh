@@ -20,6 +20,7 @@ sudo apt-get install -y \
     libgflags-dev \
     libgoogle-glog-dev \
     liblmdb-dev \
+    libyaml-dev \
     protobuf-compiler \
     python-numpy \
     python-matplotlib \
@@ -53,6 +54,7 @@ sudo dpkg-reconfigure locales
 cp .tmux.conf ~/
 
 sudo pip install -r requirements.txt
+sudo pip install pyyaml --upgrade --force
 
 ipython profile create 
 mkdir -p ~/.config/ipython/profile_default/
