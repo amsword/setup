@@ -35,6 +35,7 @@ RUN apt-get update && apt-get install -y \
         libx11-dev \
         libxpm-dev \
         libxt-dev \
+        less \
         lsb-release \
         lua5.1 \
         lua5.1-dev \
