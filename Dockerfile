@@ -16,8 +16,10 @@ RUN apt-get update && apt-get install -y \
         gdb \
         git \
         gfortran \
+        gvfs-bin \
         libboost-all-dev \
         libleveldb-dev \
+        libnotify4 \
         libopencv-dev \
         libopenblas-dev \
         libprotobuf-dev \
@@ -75,15 +77,16 @@ RUN pip install --upgrade -r requirements.txt
 RUN pip install pyyaml --upgrade --force
 
 # install visual studio code
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-RUN mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-#apt-get install -y code
+RUN wget https://amsword.blob.core.windows.net/setup/code_1.19.3-1516876437_amd64.deb 
+# The dependency is not installed, so it will return error. We use exit 0 to
+# ignore this error. The next command of -fy will install this dependency
+RUN dpkg -i code_1.19.3-1516876437_amd64.deb; exit 0
+RUN apt-get install -fy
 
 # install g++/gcc 5
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get update && \
-    apt-get install -y code gcc-5 g++-5 && \
+    apt-get install -y gcc-5 g++-5 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
         60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 
