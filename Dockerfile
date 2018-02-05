@@ -162,6 +162,13 @@ RUN cp /app/.vimrc_global /etc/skel/.vimrc
 RUN rm /app/* -rf
 RUN rm /root/* -rf
 
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+apt-get update
+apt-get install -y code
+
 # make this folder accessible
 RUN chmod 777 /app
 
