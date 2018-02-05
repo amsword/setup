@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         bc \
         build-essential \
         cmake \
+        curl \
         gdb \
         git \
         gfortran \
@@ -73,10 +74,16 @@ RUN pip install --upgrade -r requirements.txt
 
 RUN pip install pyyaml --upgrade --force
 
+# install visual studio code
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+#apt-get install -y code
+
 # install g++/gcc 5
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get update && \
-    apt-get install -y gcc-5 g++-5 && \
+    apt-get install -y code gcc-5 g++-5 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
         60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 
@@ -162,15 +169,7 @@ RUN cp /app/.vimrc_global /etc/skel/.vimrc
 RUN rm /app/* -rf
 RUN rm /root/* -rf
 
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-
-apt-get update
-apt-get install -y code
-
 # make this folder accessible
 RUN chmod 777 /app
-
 
 CMD ["sleep", "infinity"]
