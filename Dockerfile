@@ -77,11 +77,11 @@ RUN pip install --upgrade -r requirements.txt
 RUN pip install pyyaml --upgrade --force
 
 # install visual studio code
-RUN wget https://amsword.blob.core.windows.net/setup/code_1.19.3-1516876437_amd64.deb 
+#RUN wget https://amsword.blob.core.windows.net/setup/code_1.19.3-1516876437_amd64.deb 
 # The dependency is not installed, so it will return error. We use exit 0 to
 # ignore this error. The next command of -fy will install this dependency
-RUN dpkg -i code_1.19.3-1516876437_amd64.deb; exit 0
-RUN apt-get install -fy
+#RUN dpkg -i code_1.19.3-1516876437_amd64.deb; exit 0
+#RUN apt-get install -fy
 
 # install g++/gcc 5
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
@@ -97,69 +97,69 @@ RUN cp /app/.tmux.conf /etc/skel/
 RUN apt-get remove -y vim vim-runtime gvim
 
 # install the latest vim to support the YCM
-RUN git clone https://github.com/vim/vim.git && \
-    cd vim/src && \
-    ./configure --with-features=huge \
-                --enable-multibyte \
-                --enable-rubyinterp \
-                --enable-pythoninterp \
-                --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
-                --enable-python3interp \
-                --enable-perlinterp \
-                --enable-luainterp \
-                --enable-gui=gtk2 --enable-cscope --prefix=/usr && \
-    make VIMRUNTIMEDIR=/usr/share/vim/vim80 && \
-    make install && \
-    update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1 && \
-    update-alternatives --set editor /usr/bin/vim && \
-    update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1 && \
-    update-alternatives --set vi /usr/bin/vim && \
-    cd ../../
+#RUN git clone https://github.com/vim/vim.git && \
+    #cd vim/src && \
+    #./configure --with-features=huge \
+                #--enable-multibyte \
+                #--enable-rubyinterp \
+                #--enable-pythoninterp \
+                #--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+                #--enable-python3interp \
+                #--enable-perlinterp \
+                #--enable-luainterp \
+                #--enable-gui=gtk2 --enable-cscope --prefix=/usr && \
+    #make VIMRUNTIMEDIR=/usr/share/vim/vim80 && \
+    #make install && \
+    #update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1 && \
+    #update-alternatives --set editor /usr/bin/vim && \
+    #update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1 && \
+    #update-alternatives --set vi /usr/bin/vim && \
+    #cd ../../
 
 # clone the Vundle into a global position for all users
-RUN git clone https://github.com/VundleVim/Vundle.vim.git /etc/vim/bundle/Vundle.vim
+#RUN git clone https://github.com/VundleVim/Vundle.vim.git /etc/vim/bundle/Vundle.vim
 
-RUN python generate_vimrc.py
+#RUN python generate_vimrc.py
 
-RUN cp /app/.vimrc_plugin_global $HOME/.vimrc && \
-    vim +PluginInstall +qall
+#RUN cp /app/.vimrc_plugin_global $HOME/.vimrc && \
+    #vim +PluginInstall +qall
 
 # install ycm
-ENV CLANG_FILE_NAME clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04
-ENV CLANG_TAR_FILE_NAME ${CLANG_FILE_NAME}.tar.xz
-RUN rm -f $CLANG_TAR_FILE_NAME && \
-	wget http://releases.llvm.org/4.0.0/${CLANG_TAR_FILE_NAME} && \
-	tar xf $CLANG_TAR_FILE_NAME && \
-	rm -rf ycm_build && \
-	mkdir ycm_build && \
-	cd ycm_build && \
-	cmake -G "Unix Makefiles" \
-		-DPATH_TO_LLVM_ROOT=../${CLANG_FILE_NAME} . \
-		/etc/vim/bundle/Vundle.vim/YouCompleteMe/third_party/ycmd/cpp && \
-	cmake --build . --target ycm_core --config Release && \
-    rm -rf $CLANG_TAR_FILE_NAME
+#ENV CLANG_FILE_NAME clang+llvm-4.0.0-x86_64-linux-gnu-ubuntu-14.04
+#ENV CLANG_TAR_FILE_NAME ${CLANG_FILE_NAME}.tar.xz
+#RUN rm -f $CLANG_TAR_FILE_NAME && \
+	#wget http://releases.llvm.org/4.0.0/${CLANG_TAR_FILE_NAME} && \
+	#tar xf $CLANG_TAR_FILE_NAME && \
+	#rm -rf ycm_build && \
+	#mkdir ycm_build && \
+	#cd ycm_build && \
+	#cmake -G "Unix Makefiles" \
+		#-DPATH_TO_LLVM_ROOT=../${CLANG_FILE_NAME} . \
+		#/etc/vim/bundle/Vundle.vim/YouCompleteMe/third_party/ycmd/cpp && \
+	#cmake --build . --target ycm_core --config Release && \
+    #rm -rf $CLANG_TAR_FILE_NAME
 
 # install command-t for vim
-RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
-    rake make
+#RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
+    #rake make
 
 # install mkl
-ENV MKL_BASE_NAME l_mkl_2017.3.196
-ENV MKL_FILE ${MKL_BASE_NAME}.tgz
-ENV MKL_PATH_FILE /etc/ld.so.conf.d/intel_mkl.conf
-ENV MKL_URL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11544/${MKL_FILE}
-RUN wget $MKL_URL && \
-    tar -zxvf ${MKL_FILE} && \
-    cp mkl_silent.cfg ${MKL_BASE_NAME}/ && \
-    cd ${MKL_BASE_NAME} && \
-    sh install.sh -s mkl_silent.cfg && \
-    cd .. && \
-    touch ${MKL_PATH_FILE} && \
-    echo "/opt/intel/lib/intel64" >> ${MKL_PATH_FILE} && \
-    echo "/opt/intel/mkl/lib/intel64" >> ${MKL_PATH_FILE} && \
-    sudo ldconfig && \
-    rm ${MKL_FILE} && \
-    rm -rf ${MKL_BASE_NAME}
+#ENV MKL_BASE_NAME l_mkl_2017.3.196
+#ENV MKL_FILE ${MKL_BASE_NAME}.tgz
+#ENV MKL_PATH_FILE /etc/ld.so.conf.d/intel_mkl.conf
+#ENV MKL_URL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11544/${MKL_FILE}
+#RUN wget $MKL_URL && \
+    #tar -zxvf ${MKL_FILE} && \
+    #cp mkl_silent.cfg ${MKL_BASE_NAME}/ && \
+    #cd ${MKL_BASE_NAME} && \
+    #sh install.sh -s mkl_silent.cfg && \
+    #cd .. && \
+    #touch ${MKL_PATH_FILE} && \
+    #echo "/opt/intel/lib/intel64" >> ${MKL_PATH_FILE} && \
+    #echo "/opt/intel/mkl/lib/intel64" >> ${MKL_PATH_FILE} && \
+    #sudo ldconfig && \
+    #rm ${MKL_FILE} && \
+    #rm -rf ${MKL_BASE_NAME}
 
 # install nccl for gpu parallel
 RUN git clone https://github.com/NVIDIA/nccl.git && \
