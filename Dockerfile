@@ -167,7 +167,7 @@ RUN git clone https://github.com/NVIDIA/nccl.git && \
         cd .. && rm -rf nccl
 
 
-RUN cp /app/.vimrc_global /etc/skel/.vimrc
+#RUN cp /app/.vimrc_global /etc/skel/.vimrc
 
 RUN rm /app/* -rf
 RUN rm /root/* -rf
