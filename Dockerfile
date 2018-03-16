@@ -167,6 +167,8 @@ RUN git clone https://github.com/NVIDIA/nccl.git && \
         cd .. && rm -rf nccl
 
 
+RUN touch /etc/skel/.bashrc
+RUN echo "alias ll='ls -alF'" >> /etc/skel/.bashrc
 RUN cp /app/.vimrc_global /etc/skel/.vimrc
 
 RUN rm /app/* -rf
