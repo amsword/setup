@@ -166,6 +166,8 @@ RUN git clone https://github.com/NVIDIA/nccl.git && \
         cd nccl && make -j install && \
         cd .. && rm -rf nccl
 
+RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl 
+RUN pip install torchvision 
 
 RUN touch /etc/skel/.bashrc
 RUN echo "alias ll='ls -alF'" >> /etc/skel/.bashrc
