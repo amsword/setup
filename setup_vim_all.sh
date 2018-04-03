@@ -58,7 +58,7 @@ if [[ $LSB_RELEASE_INFO = *"16.04" ]]; then
     IS_14=0
 fi
 
-if [[ $IS_14 ]]; then
+if [ $IS_14 -eq 1 ]; then
     sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     sudo apt-get update
     sudo apt-get install -y gcc-5 g++-5
