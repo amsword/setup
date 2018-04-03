@@ -23,12 +23,12 @@ sudo apt-get install -y cuda
 
 #rm -f cuda-repo.deb
 
-#if [ ! -f cuda-patch.deb ]; then
-    #if [[ $IS_14 ]]; then
-        #wget https://amsword.blob.core.windows.net/setup/cuda-repo-ubuntu1404-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb -O cuda-patch.deb
-    #else
-        #wget https://amsword.blob.core.windows.net/setup/cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb -O cuda-patch.deb
-    #fi
-#fi
+if [ ! -f cuda-patch.deb ]; then
+    if [[ $IS_14 -eq 1 ]]; then
+        wget https://amsword.blob.core.windows.net/setup/cuda-repo-ubuntu1404-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb -O cuda-patch.deb
+    else
+        wget https://amsword.blob.core.windows.net/setup/cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb -O cuda-patch.deb
+    fi
+fi
 
-#dpkg -i cuda-patch.deb
+sudo dpkg -i --force-overwrite cuda-patch.deb
