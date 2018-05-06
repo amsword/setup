@@ -19,6 +19,6 @@ Plugin 'vim-scripts/syntastic'
 Plugin 'vim-scripts/vim-auto-save'
 Plugin 'vim-scripts/BufOnly.vim' 
 Plugin 'bling/vim-airline'
-Plugin 'majutsushi/tagbar'
+" Plugin 'majutsushi/tagbar'
 call vundle#end()            " required
 filetype plugin indent on    " required
