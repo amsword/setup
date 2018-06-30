@@ -8,6 +8,7 @@ URL=https://download.open-mpi.org/release/open-mpi/v1.10/$ZIPFILENAME
 wget $URL
 tar -xvf $ZIPFILENAME
 cd $FILENAME
-./configure --prefix="$HOME/data/lib/mpi"
+./configure --prefix=/usr/local
 make -j
+make all
 make install
