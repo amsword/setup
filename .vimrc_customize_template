@@ -8,6 +8,7 @@ set softtabstop=4
 set shiftwidth=4
 set tw=79
 "set foldmethod=syntax
+"set foldmethod=indent
 map <F2> :retab <CR> :wq! <CR>
 let g:netrw_localrmdir="rm -rf"
 set nowrap
@@ -72,7 +73,8 @@ nmap ,lcd :lcd %:p:h<CR>
 
 let g:CommandTMaxFiles=500000
 let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
-            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d" . ",*/models/*"
+            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d" . ",*/models/*" .
+            \ ",*/tmp_run/*" . ",*.jpg"
 
 let g:ConqueGdb_Leader = '\'
 let g:ConqueGdb_DeleteBreak = g:ConqueGdb_Leader . 'd'
@@ -98,3 +100,8 @@ let Tlist_Show_One_File = 1
 let g:ycm_confirm_extra_conf=0
 let g:ctags_statusline=1 
 
+set autoread
+let g:airline#extensions#branch#enabled = 0
+let g:airline_extensions = []
+
+set shortmess+=A

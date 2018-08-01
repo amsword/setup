@@ -2,4 +2,10 @@ cuda/
 .*.swp
 cudnn.tgz
 data/
+.vimrc
+.vimrc_global
+.vimrc_plugin
+.vimrc_plugin_global
+ycm_build
+clang*
 
