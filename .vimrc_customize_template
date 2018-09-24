@@ -1,3 +1,5 @@
+call neomake#configure#automake('nw', 1000)
+
 set nocp
 inoremap jk <ESC>
 filetype plugin on
@@ -105,3 +107,6 @@ let g:airline#extensions#branch#enabled = 0
 let g:airline_extensions = []
 
 set shortmess+=A
+
+let g:neomake_python_enabled_makers = ['pyflakes']
+

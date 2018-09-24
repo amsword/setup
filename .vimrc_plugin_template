@@ -14,10 +14,11 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'mkitt/tabline.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'amsword/vim-snippets' 
+"Plugin 'vim-syntastic/syntastic'
 Plugin 'szw/vim-maximizer'
-Plugin 'vim-scripts/syntastic'
 Plugin 'vim-scripts/vim-auto-save'
 Plugin 'vim-scripts/BufOnly.vim' 
 Plugin 'roxma/vim-tmux-clipboard'
+Plugin 'neomake/neomake'
 call vundle#end()            " required
 filetype plugin indent on    " required
