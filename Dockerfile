@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
+FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
 WORKDIR /app
 ADD requirements.txt /app
@@ -42,7 +42,6 @@ RUN apt-get update && apt-get install -y \
         lsb-release \
         lua5.1 \
         lua5.1-dev \
-        libyaml-dev \
         libperl-dev \
         python-dev \
         python-pip \
@@ -71,10 +70,11 @@ RUN apt-get update && apt-get install -y \
         tmux
 
 RUN pip install --upgrade pip
-RUN pip install --upgrade ipython
-RUN pip install --upgrade -r requirements.txt
+RUN pip install --upgrade ipython -force
 
-RUN pip install pyyaml --upgrade --force
+# though we donot instlal yaml, we have to remove it here
+RUN apt-get remove -y python-yaml python-scipy
+RUN pip install --upgrade -r requirements.txt
 
 # install visual studio code
 RUN wget https://amsword.blob.core.windows.net/setup/code_1.19.3-1516876437_amd64.deb 
@@ -84,11 +84,11 @@ RUN dpkg -i code_1.19.3-1516876437_amd64.deb; exit 0
 RUN apt-get install -fy
 
 # install g++/gcc 5
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
-    apt-get update && \
-    apt-get install -y gcc-5 g++-5 && \
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
-        60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+#RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    #apt-get update && \
+    #apt-get install -y gcc-5 g++-5 && \
+    #update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 \
+        #60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
 
 # config the tmux for all users by default
 RUN cp /app/.tmux.conf /etc/skel/
