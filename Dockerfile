@@ -144,29 +144,32 @@ RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
     rake make
 
 # install mkl
-ENV MKL_BASE_NAME l_mkl_2017.3.196
-ENV MKL_FILE ${MKL_BASE_NAME}.tgz
-ENV MKL_PATH_FILE /etc/ld.so.conf.d/intel_mkl.conf
-ENV MKL_URL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11544/${MKL_FILE}
-RUN wget $MKL_URL && \
-    tar -zxvf ${MKL_FILE} && \
-    cp mkl_silent.cfg ${MKL_BASE_NAME}/ && \
-    cd ${MKL_BASE_NAME} && \
-    sh install.sh -s mkl_silent.cfg && \
-    cd .. && \
-    touch ${MKL_PATH_FILE} && \
-    echo "/opt/intel/lib/intel64" >> ${MKL_PATH_FILE} && \
-    echo "/opt/intel/mkl/lib/intel64" >> ${MKL_PATH_FILE} && \
-    sudo ldconfig && \
-    rm ${MKL_FILE} && \
-    rm -rf ${MKL_BASE_NAME}
+# the url is no longer available
+#ENV MKL_BASE_NAME l_mkl_2017.3.196
+#ENV MKL_FILE ${MKL_BASE_NAME}.tgz
+#ENV MKL_PATH_FILE /etc/ld.so.conf.d/intel_mkl.conf
+#ENV MKL_URL http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/11544/${MKL_FILE}
+#RUN wget $MKL_URL && \
+    #tar -zxvf ${MKL_FILE} && \
+    #cp mkl_silent.cfg ${MKL_BASE_NAME}/ && \
+    #cd ${MKL_BASE_NAME} && \
+    #sh install.sh -s mkl_silent.cfg && \
+    #cd .. && \
+    #touch ${MKL_PATH_FILE} && \
+    #echo "/opt/intel/lib/intel64" >> ${MKL_PATH_FILE} && \
+    #echo "/opt/intel/mkl/lib/intel64" >> ${MKL_PATH_FILE} && \
+    #sudo ldconfig && \
+    #rm ${MKL_FILE} && \
+    #rm -rf ${MKL_BASE_NAME}
 
 # install nccl for gpu parallel
 RUN git clone https://github.com/NVIDIA/nccl.git && \
-        cd nccl && make -j install && \
+        cd nccl && make -j src.build && \
+        make pkg.debian.build && \
         cd .. && rm -rf nccl
 
-RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl 
+#RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl 
+RUN pip install http://download.pytorch.org/whl/cu80/torch-0.4.0-cp27-cp27mu-linux_x86_64.whl
 RUN pip install torchvision 
 
 RUN touch /etc/skel/.bashrc
