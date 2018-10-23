@@ -165,7 +165,7 @@ RUN cd /etc/vim/bundle/Vundle.vim/command-t && \
 
 # install nccl for gpu parallel
 RUN git clone https://github.com/NVIDIA/nccl.git && \
-        cd nccl && make -j src.build && \
+        cd nccl && make src.build && \
         make pkg.debian.build && \
         cd .. && rm -rf nccl
 
