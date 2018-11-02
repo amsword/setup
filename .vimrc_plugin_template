@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-set rtp+={0}
-call vundle#begin({1})
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/Conque-GDB'
 Plugin 'altercation/vim-colors-solarized'
@@ -14,11 +14,12 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'mkitt/tabline.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'amsword/vim-snippets' 
-"Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'szw/vim-maximizer'
 Plugin 'vim-scripts/vim-auto-save'
 Plugin 'vim-scripts/BufOnly.vim' 
 Plugin 'roxma/vim-tmux-clipboard'
 Plugin 'neomake/neomake'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-scripts/Tagbar'
 call vundle#end()            " required
-filetype plugin indent on    " required
