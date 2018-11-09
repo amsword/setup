@@ -45,4 +45,4 @@ cd ~/.vim/bundle/command-t
 rake make
 
 # nvim with python support. assume conda is used
-pip install neovim
+sudo pip install neovim
