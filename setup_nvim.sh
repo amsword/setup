@@ -6,6 +6,7 @@ sudo apt-get install python-neovim
 sudo apt-get install python3-neovim
 sudo gem install neovim
 
+ROOT_FOLDER=$(pwd)
 
 VIM_CONFIG=~/.config/nvim/init.vim
 mkdir -p ~/.config/nvim
@@ -19,7 +20,7 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
 python generate_vimrc.py
-cd ~/code/setup
+cd $ROOT_FOLDER
 cp .vimrc_plugin ~/.vimrc
 nvim +PluginInstall +qall
 
@@ -34,11 +35,11 @@ rm -rf ycm_build
 mkdir ycm_build
 cd ycm_build
 cmake -G "Unix Makefiles" \
-	-DPATH_TO_LLVM_ROOT=~/code/setup/$CLANG_FILE_NAME . \
+	-DPATH_TO_LLVM_ROOT=$ROOT_FOLDER/$CLANG_FILE_NAME . \
 	~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
 cmake --build . --target ycm_core --config Release
 
-cp ~/code/setup/.vimrc ~/.vimrc
+cp $ROOT_FOLDER/.vimrc ~/.vimrc 
 
 #setup the command t
 cd ~/.vim/bundle/command-t
