@@ -5,6 +5,11 @@ PATCH2_URL=https://developer.nvidia.com/compute/cuda/9.0/Prod/patches/2/cuda-rep
 PATCH3_URL=https://developer.nvidia.com/compute/cuda/9.0/Prod/patches/3/cuda-repo-ubuntu1604-9-0-local-cublas-performance-update-3_1.0-1_amd64-deb
 PATCH4_URL=https://developer.nvidia.com/compute/cuda/9.0/Prod/patches/4/cuda-repo-ubuntu1604-9-0-176-local-patch-4_1.0-1_amd64-deb
 
+#PATCH1_URL=https://amsword.blob.core.windows.net/setup/CUDA/cuda-repo-ubuntu1604-9-0-local-cublas-performance-update_1.0-1_amd64-deb
+#PATCH2_URL=https://amsword.blob.core.windows.net/setup/CUDA/cuda-repo-ubuntu1604-9-0-local-cublas-performance-update-2_1.0-1_amd64-deb
+#PATCH3_URL=https://amsword.blob.core.windows.net/setup/CUDA/cuda-repo-ubuntu1604-9-0-local-cublas-performance-update-3_1.0-1_amd64-deb
+#PATCH4_URL=https://amsword.blob.core.windows.net/setup/CUDA/cuda-repo-ubuntu1604-9-0-176-local-patch-4_1.0-1_amd64-deb
+
 wget $CUDA_URL -O cuda.deb
 sudo dpkg -i cuda.deb
 sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
