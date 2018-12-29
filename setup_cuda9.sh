@@ -9,8 +9,7 @@ wget $CUDA_URL -O cuda.deb
 sudo dpkg -i cuda.deb
 sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
 sudo apt-get update
-sudo apt-get install cuda
-
+sudo apt-get install -y cuda
 
 wget $PATCH1_URL -O patch1.deb
 sudo dpkg -i patch1.deb
@@ -24,3 +23,4 @@ sudo dpkg -i patch3.deb
 wget $PATCH4_URL -O patch4.deb
 sudo dpkg -i patch4.deb
 
+rm cuda.deb patch1.deb patch2.deb patch3.deb patch4.deb
