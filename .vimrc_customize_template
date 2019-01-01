@@ -1,4 +1,4 @@
-call neomake#configure#automake('nw', 1000)
+call neomake#configure#automake('nrwi', 500)
 
 set nocp
 inoremap jk <ESC>
@@ -75,7 +75,7 @@ nmap ,lcd :lcd %:p:h<CR>
 
 let g:CommandTMaxFiles=500000
 let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
-            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d" . ",*/models/*" .
+            \ ",*.log" . ",*/data" . ",*/output/*" . ",*.d" . ",*/models/*" .
             \ ",*/tmp_run/*" . ",*.jpg"
 
 let g:ConqueGdb_Leader = '\'
@@ -108,7 +108,7 @@ let g:airline_extensions = []
 
 set shortmess+=A
 
-let g:neomake_python_enabled_makers = []
+let g:neomake_python_enabled_makers = ['pyflakes']
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -119,4 +119,3 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -p ~/.agignore -g ""'
-
