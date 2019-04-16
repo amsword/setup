@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04
 
 WORKDIR /app
 ADD requirements.txt /app
@@ -169,9 +169,8 @@ RUN git clone https://github.com/NVIDIA/nccl.git && \
         make pkg.debian.build && \
         cd .. && rm -rf nccl
 
-#RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl 
-RUN pip install http://download.pytorch.org/whl/cu80/torch-0.4.0-cp27-cp27mu-linux_x86_64.whl
-RUN pip install torchvision 
+RUN pip install pip install torch
+RUN pip install torchvision
 
 RUN touch /etc/skel/.bashrc
 RUN echo "alias ll='ls -alF'" >> /etc/skel/.bashrc
