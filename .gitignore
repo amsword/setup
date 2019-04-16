@@ -8,4 +8,4 @@ data/
 .vimrc_plugin_global
 ycm_build
 clang*
-
+nccl/

@@ -15,7 +15,7 @@ sudo apt-get install -y \
     libleveldb-dev \
     libsnappy-dev \
     libopencv-dev \
-    libboost-dev \
+    libboost-all-dev \
     libhdf5-serial-dev \
     libgflags-dev \
     libgoogle-glog-dev \
