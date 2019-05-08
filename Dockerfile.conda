@@ -1,0 +1,85 @@
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04
+
+WORKDIR /app
+ADD requirements.txt /app
+ADD .tmux.conf /app
+ADD .vimrc_customize_template /app
+ADD .vimrc_plugin_template /app
+ADD generate_vimrc.py /app
+ADD mkl_silent.cfg /app
+
+RUN apt-get update && apt-get install -y \
+        bc \
+        build-essential \
+        cmake \
+        curl \
+        devscripts \
+        gdb \
+        git \
+        gfortran \
+        gvfs-bin \
+        libboost-all-dev \
+        libleveldb-dev \
+        libnotify4 \
+        libopenblas-dev \
+        libclang-dev \
+        libncurses5-dev \
+        libbonoboui2-dev \
+        libcairo2-dev \
+        libgnome2-dev \
+        libgnomeui-dev \
+        libgtk2.0-dev \
+        libx11-dev \
+        libxpm-dev \
+        libxt-dev \
+        less \
+        lsb-release \
+        libperl-dev \
+        libhdf5-serial-dev \
+        cmake \
+        libatlas-base-dev \
+        rake \
+        ruby-dev \
+        silversearcher-ag \
+        software-properties-common \
+        wget \
+        tmux
+
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O anaconda.sh && \
+    /bin/bash anaconda.sh -b -p /opt/conda && \
+    rm anaconda.sh
+
+ENV PATH="/opt/conda/bin:${PATH}"
+
+RUN conda install -y python=3.6
+
+RUN pip install --upgrade pip
+RUN pip install --upgrade ipython
+
+# though we donot instlal yaml, we have to remove it here
+#RUN apt-get remove -y python-yaml python-scipy
+RUN pip install --upgrade -r requirements.txt
+
+# config the tmux for all users by default
+RUN cp /app/.tmux.conf /etc/skel/
+
+# install nccl for gpu parallel
+RUN git clone https://github.com/NVIDIA/nccl.git && \
+        cd nccl && make src.build && \
+        make pkg.debian.build && \
+        cd .. && rm -rf nccl
+
+RUN pip install torch
+RUN pip install torchvision
+
+RUN touch /etc/skel/.bashrc
+RUN echo "alias ll='ls -alF'" >> /etc/skel/.bashrc
+
+RUN rm /app/* -rf
+RUN rm /root/* -rf
+
+# make this folder accessible
+RUN chmod 777 /app
+
+CMD ["sleep", "infinity"]
