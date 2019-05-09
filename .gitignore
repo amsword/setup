@@ -9,3 +9,4 @@ data/
 ycm_build
 clang*
 nccl/
+libs/
