@@ -103,5 +103,5 @@ RUN rm -rf /var/lib/apt/lists/*
 # make this folder accessible
 RUN chmod 777 /app
 
-ENTRYPOINT service ssh restart && bash
-CMD sleep infinity
+#ENTRYPOINT service ssh restart && /bin/bash
+CMD ["sleep", "infinity"]
