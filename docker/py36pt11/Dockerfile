@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
 WORKDIR /app
 ADD requirements.txt /app
@@ -41,15 +41,15 @@ RUN apt-get update && apt-get install -y \
         wget \
         tmux
 
-# fix the issue: https://github.com/phusion/baseimage-docker/issues/319
-RUN apt-get install -y --no-install-recommends apt-utils
-
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O anaconda.sh && \
     /bin/bash anaconda.sh -b -p /opt/conda && \
     rm anaconda.sh
 
 ENV PATH="/opt/conda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/opt/conda/lib:${LD_LIBRARY_PATH}"
+
+RUN conda install -y python=3.6
 
 RUN conda install -y \
         python=3.6 \
@@ -61,25 +61,16 @@ RUN conda install -y \
         lmdb \
         mkl-include \
         leveldb && \
-    pip install --upgrade pip ipython
+    pip install --upgrade pip ipython && \
+    pip install --upgrade -r requirements.txt
 
-# though we donot instlal yaml, we have to remove it here
-#RUN apt-get remove -y python-yaml python-scipy
-RUN pip install --upgrade -r requirements.txt
-
-# config the tmux for all users by default
-RUN cp /app/.tmux.conf /etc/skel/
-
-RUN python -c "import nltk; nltk.download('wordnet', '/usr/local/share')"
+RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 
 # install nccl for gpu parallel
-RUN git clone https://github.com/NVIDIA/nccl.git && \
-        cd nccl && make src.build && \
-        make pkg.debian.build && \
-        cd .. && rm -rf nccl
-
-RUN pip install torch=1.1
-RUN pip install torchvision
+#RUN git clone https://github.com/NVIDIA/nccl.git && \
+        #cd nccl && make src.build && \
+        #make pkg.debian.build && \
+        #cd .. && rm -rf nccl
 
 RUN cd /app && \
     git clone https://github.com/cocodataset/cocoapi && \
@@ -92,12 +83,25 @@ RUN cd /app && \
     python setup.py install --cuda_ext --cpp_ext
 
 RUN touch /etc/skel/.bashrc
+
+ADD config /app
+ADD id_rsa /app
+ADD id_rsa.pub /app
+
+RUN mkdir ~/.ssh/ -p && cp /app/id_rsa ~/.ssh/ && \
+    cp /app/id_rsa.pub ~/.ssh/ && \
+    cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys && \
+    cp /app/config /root/.ssh/
+
+RUN apt-get install -y openssh-server
+
 RUN echo "alias ll='ls -alF'" >> /etc/skel/.bashrc
 
 RUN rm /app/* -rf
-RUN rm /root/* -rf
+RUN rm -rf /var/lib/apt/lists/*
 
 # make this folder accessible
 RUN chmod 777 /app
 
-CMD ["sleep", "infinity"]
+ENTRYPOINT service ssh restart && bash
+CMD sleep infinity
