@@ -200,8 +200,7 @@ RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
     ldconfig
 
 RUN apt-get update && apt-get install -y \
-        infiniband-diags \
-        ibverbs-providers
+        infiniband-diags
 
 RUN apt-get install iperf
 
