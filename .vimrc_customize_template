@@ -53,7 +53,6 @@ nmap td :tabclose<CR>
 "color ron 
 syntax enable
 set background=dark
-colorscheme solarized
 set modifiable
 let mapleader=","
 set backspace=indent,eol,start
@@ -75,8 +74,12 @@ nmap ,lcd :lcd %:p:h<CR>
 
 let g:CommandTMaxFiles=500000
 let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
-            \ ",*.log" . ",*/data" . ",*/output/*" . ",*.d" . ",*/models/*" .
+            \ ",*.log" . ",*/data/*" . ",*/output/*" . ",*.d" . ",*/models/*" .
             \ ",*/tmp_run/*" . ",*.jpg"
+
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|tmp_run$\|output$',
+    \ 'file': '\v\.(o|pyc|exe|dll|lib|jpg|png|jpeg|caffemodel|predict)$' }
 
 let g:ConqueGdb_Leader = '\'
 let g:ConqueGdb_DeleteBreak = g:ConqueGdb_Leader . 'd'
@@ -103,19 +106,34 @@ let g:ycm_confirm_extra_conf=0
 let g:ctags_statusline=1 
 
 set autoread
-let g:airline#extensions#branch#enabled = 0
-let g:airline_extensions = []
 
 set shortmess+=A
 
 let g:neomake_python_enabled_makers = ['pyflakes']
+" we use ycm to do the syntax checking and thus, disable the neomake 
+let g:neomake_cpp_enabled_makers=[]
+let g:neomake_c_enabled_makers=[]
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 'et'
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -p ~/.agignore -g ""'
+augroup my_neomake_signs
+    au!
+    autocmd ColorScheme *
+        \ hi NeomakeErrorSign ctermfg=red |
+        \ hi NeomakeWarningSign ctermfg=yellow
+augroup END
+
+let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+"let g:neomake_error_sign = {
+    "\ 'text': 'E>',
+    "\ 'texthl': 'NeomakeErrorSign',
+    "\ }
+let g:neomake_warning_sign = {
+    \   'text': '⚠',
+    \   'texthl': 'NeomakeWarningSign',
+    \ }
+"this should be after augroup my_neomake_signs, or that does not work
+colorscheme solarized
+
+nmap <Leader>b :CtrlPBuffer<CR>
