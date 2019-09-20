@@ -78,7 +78,7 @@ let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
             \ ",*/tmp_run/*" . ",*.jpg"
 
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|tmp_run$\|output$',
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|tmp_run$\|output$\|assets$\|lib.linux-x86_64-3.5$\|lib.linux-x86_64-3.6$\|temp.linux-x86_64-3.5$\|temp.linux-x86_64-3.6$',
     \ 'file': '\v\.(o|pyc|exe|dll|lib|jpg|png|jpeg|caffemodel|predict)$' }
 
 let g:ConqueGdb_Leader = '\'
