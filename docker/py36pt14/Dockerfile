@@ -137,14 +137,20 @@ RUN conda install -y \
 ENV TORCH_CUDA_ARCH_LIST=3.5;5.0+PTX;6.0;6.1;7.0;7.5
 RUN conda install -y pytorch=1.4 torchvision cudatoolkit=10.1 -c pytorch
 
-RUN cd /app && \
-        git clone https://github.com/pytorch/vision.git && \
-        cd vision && \
-        FORCE_CUDA=1 python setup.py install
+#RUN cd /app && \
+        #git clone https://github.com/pytorch/vision.git && \
+        #cd vision && \
+        #FORCE_CUDA=1 python setup.py install
 
 # install nccl for gpu parallel
-#RUN git clone https://github.com/NVIDIA/nccl.git && \
-        #cd nccl && make src.build && \
+RUN conda install -c anaconda -y wget && \
+    wget https://amsword.blob.core.windows.net/setup/nccl-repo-ubuntu1604-2.6.4-ga-cuda10.1_1-1_amd64.deb && \
+    dpkg -i nccl-repo-ubuntu1604-2.6.4-ga-cuda10.1_1-1_amd64.deb && \
+    apt update && \
+    apt install -y --allow-change-held-packages libnccl2=2.6.4-1+cuda10.1 libnccl-dev=2.6.4-1+cuda10.1
+
+#RUN git clone -b v2.6.4-1 https://github.com/NVIDIA/nccl.git && \
+        #cd nccl && make -j src.build && \
         #make pkg.debian.build && \
         #cd .. && rm -rf nccl
 
@@ -196,10 +202,13 @@ RUN mkdir /tmp/openmpi && \
 #RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
     #HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 pip install --no-cache-dir horovod && \
     #ldconfig
-RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
-    HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 python -m pip install --no-cache-dir \
-    git+https://github.com/horovod/horovod.git@910333f428e91c4cdca634864398f0952067f2a8 && \
-    ldconfig
+#RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
+    #HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 python -m pip install --no-cache-dir \
+    #git+https://github.com/horovod/horovod.git@910333f428e91c4cdca634864398f0952067f2a8 && \
+    #ldconfig
+RUN HOROVOD_GPU_ALLREDUCE=NCCL \
+    HOROVOD_GPU_BROADCAST=NCCL \
+    pip install --no-cache-dir horovod==0.19.1
 
 RUN apt-get update && apt-get install -y \
         infiniband-diags

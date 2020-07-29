@@ -17,7 +17,7 @@ cd $ROOT_FOLDER
 cp .vimrc_plugin ~/.vimrc
 nvim +PluginInstall +qall
 
-CLANG_FILE_NAME="clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04"
+CLANG_FILE_NAME="clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04" 
 CLANG_TAR_FILE_NAME=${CLANG_FILE_NAME}.tar.xz
 rm -f $CLANG_TAR_FILE_NAME
 wget http://releases.llvm.org/6.0.1/$CLANG_TAR_FILE_NAME
@@ -29,10 +29,10 @@ mkdir ycm_build
 cd ycm_build
 cmake -G "Unix Makefiles" \
 	-DPATH_TO_LLVM_ROOT=$ROOT_FOLDER/$CLANG_FILE_NAME . \
-	~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+	~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp
 cmake --build . --target ycm_core --config Release
 
-cp $ROOT_FOLDER/.vimrc ~/.vimrc
+cp $ROOT_FOLDER/.vimrc ~/.vimrc 
 
 #setup the command t
 #cd ~/.vim/bundle/command-t

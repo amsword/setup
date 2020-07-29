@@ -6,7 +6,7 @@ conda install -y python=3.6
 
 conda install -y ipython
 
-conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 conda install -y pymongo
 conda install -y -c anaconda libprotobuf protobuf
 conda install -y -c auto easydict

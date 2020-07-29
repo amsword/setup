@@ -22,6 +22,15 @@ sudo apt-get install -y \
     liblmdb-dev \
     libyaml-dev \
     protobuf-compiler \
+    libhdf5-serial-dev \
+    cmake \
+    libatlas-base-dev \
+    python-pip \
+    rake \
+    gdb \
+    bc \
+    libclang-dev \
+    tmux \
     python-numpy \
     python-matplotlib \
     python-sklearn \
@@ -36,16 +45,7 @@ sudo apt-get install -y \
     python-opencv \
     python-dev \
     python-software-properties \
-    ipython \
-    libhdf5-serial-dev \
-    cmake \
-    libatlas-base-dev \
-    python-pip \
-    rake \
-    gdb \
-    bc \
-    libclang-dev \
-    tmux
+    ipython
 
 
 sudo locale-gen en_US en_US.UTF-8 hu_HU hu_HU.UTF-8 

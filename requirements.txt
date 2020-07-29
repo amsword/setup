@@ -12,7 +12,6 @@ django
 Cython
 progressbar
 protobuf
-ete2
 numpy
 scipy
 nltk
