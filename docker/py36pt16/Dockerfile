@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
 
 WORKDIR /app
 ADD requirements.txt /app
@@ -80,8 +80,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
         chrpath \
         swig \
         automake \
-        tk8.4 \
-        tcl8.4 \
+        #tk8.4 \
+        #tcl8.4 \
         libgfortran3 \
         tcl \
         libnl-3-200 \
@@ -135,34 +135,8 @@ RUN conda install -y \
     pip install --upgrade -r requirements.txt
 
 ENV TORCH_CUDA_ARCH_LIST=3.5;5.0+PTX;6.0;6.1;7.0;7.5
-RUN conda install -y pytorch=1.6 torchvision cudatoolkit=10.1 -c pytorch
+RUN conda install -y pytorch=1.6 torchvision cudatoolkit=10.2 -c pytorch
 
-#RUN cd /app && \
-        #git clone https://github.com/pytorch/vision.git && \
-        #cd vision && \
-        #FORCE_CUDA=1 python setup.py install
-
-# install nccl for gpu parallel
-RUN conda install -c anaconda -y wget && \
-    wget https://amsword.blob.core.windows.net/setup/nccl-repo-ubuntu1604-2.6.4-ga-cuda10.1_1-1_amd64.deb && \
-    dpkg -i nccl-repo-ubuntu1604-2.6.4-ga-cuda10.1_1-1_amd64.deb && \
-    apt update && \
-    apt install -y --allow-change-held-packages libnccl2=2.6.4-1+cuda10.1 libnccl-dev=2.6.4-1+cuda10.1
-
-#RUN git clone -b v2.6.4-1 https://github.com/NVIDIA/nccl.git && \
-        #cd nccl && make -j src.build && \
-        #make pkg.debian.build && \
-        #cd .. && rm -rf nccl
-
-#ENV NCCL_VERSION=2.4.7-1+cuda10.0
-#RUN apt-get install -y --allow-change-held-packages \
-    #libnccl2=${NCCL_VERSION} \
-    #libnccl-dev=${NCCL_VERSION}
-
-RUN cd /app && \
-    git clone https://www.github.com/nvidia/apex && \
-    cd apex && \
-    python setup.py install --cuda_ext --cpp_ext
 
 RUN cd /app && \
     git clone https://github.com/amsword/cocoapi && \
@@ -196,12 +170,16 @@ RUN mkdir /tmp/openmpi && \
     #HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 python -m pip install --no-cache-dir \
     #git+https://github.com/horovod/horovod.git@910333f428e91c4cdca634864398f0952067f2a8 && \
     #ldconfig
-RUN HOROVOD_GPU_ALLREDUCE=NCCL \
-    HOROVOD_GPU_BROADCAST=NCCL \
-    pip install --no-cache-dir horovod==0.19.1
+#RUN HOROVOD_GPU_ALLREDUCE=NCCL \
+    #HOROVOD_GPU_BROADCAST=NCCL \
+    #pip install --no-cache-dir horovod==0.19.1
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt --fix-broken install -y && apt-get install -y \
         infiniband-diags
+
+# install java, used by evaluation for caption
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get -y install default-jre-headless
 
 RUN apt-get install iperf
 
