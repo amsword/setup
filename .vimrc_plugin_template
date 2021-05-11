@@ -1,24 +1,30 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'vim-scripts/Conque-GDB'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'amsword/YouCompleteMe'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'oplatek/Conque-Shell'
-Plugin 'amsword/comments.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mkitt/tabline.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'amsword/vim-snippets' 
-Plugin 'szw/vim-maximizer'
-Plugin 'vim-scripts/vim-auto-save'
-Plugin 'vim-scripts/BufOnly.vim' 
-Plugin 'roxma/vim-tmux-clipboard'
-Plugin 'neomake/neomake'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-scripts/Tagbar'
-Plugin 'ntpeters/vim-better-whitespace'
-call vundle#end()            " required
+call plug#begin('~/.vim/plugged')
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'master'}
+"Plug 'gcmt/taboo.vim'
+Plug 'gmarik/Vundle.vim'
+"Plug 'PhilRunninger/nerdtree-visual-selection'
+"Plug 'preservim/nerdtree'
+"Plug 'vim-scripts/Conque-GDB'
+Plug 'altercation/vim-colors-solarized'
+Plug 'amsword/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plug 'oplatek/Conque-Shell'
+Plug 'amsword/comments.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'mkitt/tabline.vim'
+Plug 'SirVer/ultisnips'
+Plug 'amsword/vim-snippets'
+Plug 'szw/vim-maximizer'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'neomake/neomake'
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'vim-scripts/Tagbar'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'vim-latex/vim-latex'
+Plug 'machakann/vim-highlightedyank'
+Plug 'Vimjas/vim-python-pep8-indent'
+"Plug 'wincent/command-t'
+call plug#end()

@@ -7,14 +7,13 @@ touch $VIM_CONFIG
 cp init.vim $VIM_CONFIG
 
 rm -rf ~/.vim
-rm -rf ~/.vim/bundle/Vundle.vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-
-python generate_vimrc.py
+#python generate_vimrc.py
 cd $ROOT_FOLDER
-cp .vimrc_plugin ~/.vimrc
+cp .vimrc ~/.vimrc
 nvim +PluginInstall +qall
 
 CLANG_FILE_NAME="clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04"
