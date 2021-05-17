@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
+FROM nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
 WORKDIR /app
 ADD requirements.txt /app
@@ -84,34 +84,27 @@ ENV LANG en_US.UTF-8
 
 RUN conda install -y python=3.7
 
-ENV TORCH_CUDA_ARCH_LIST=3.5;5.0+PTX;6.0;6.1;7.0;7.5
-RUN conda install -y pytorch=1.7 torchvision cudatoolkit=11.1 -c pytorch -c conda-forge
+ENV TORCH_CUDA_ARCH_LIST=3.5;5.0+PTX;6.0;6.1;7.0;7.5;8.0
+RUN conda install -y pytorch==1.7.1 torchvision==0.8.2 cudatoolkit=11.0 -c pytorch
 
-RUN conda install -y \
-        python=3.7 \
-        libprotobuf \
-        boost \
-        gflags \
-        glog \
-        opencv \
-        lmdb \
-        mkl-include \
-        leveldb && \
-    pip install --upgrade pip ipython && \
-    rm /opt/conda/lib/python3.7/site-packages/ruamel_yaml* -rf && \
-    pip install --upgrade -r requirements.txt
-
+#RUN conda install -y \
+        #libprotobuf \
+        #boost \
+        #gflags \
+        #glog \
+        #opencv \
+        #lmdb \
+        #mkl-include \
+        #leveldb && \
+    #pip install --upgrade pip ipython && \
+    #rm /opt/conda/lib/python3.7/site-packages/ruamel_yaml* -rf && \
+    #pip install --upgrade -r requirements.txt
 
 
 RUN cd /app && \
     git clone https://www.github.com/nvidia/apex && \
     cd apex && \
-    python setup.py install --cuda_ext --cpp_ext
-
-RUN cd /app && \
-    git clone https://github.com/amsword/cocoapi && \
-    cd cocoapi/PythonAPI && \
-    make install
+    pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" .
 
 RUN touch /etc/skel/.bashrc
 
@@ -162,6 +155,13 @@ RUN cd /app && \
     cp azcopy_linux_amd64_10.2.1/azcopy /usr/bin/ && \
     rm -rf a.tar.gz azcopy_linux_amd64_10.2.1
 
+RUN pip install ninja cython pyyaml
+RUN cd /app && \
+    git clone --recursive https://github.com/amsword/cocoapi && \
+    cd cocoapi/PythonAPI && \
+    make install
+
+
 #RUN rm /app/* -rf
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -169,8 +169,7 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN chmod 777 /app
 RUN echo '    StrictHostKeyChecking no' >> /etc/ssh/ssh_config
 #RUN chmod 777 ~/.ssh
-RUN echo "root:Docker!" | chpasswd
-RUN pip install ninja
+#RUN echo "root:Docker!" | chpasswd
 
 #ENTRYPOINT service ssh restart && /bin/bash
 CMD ["sleep", "infinity"]

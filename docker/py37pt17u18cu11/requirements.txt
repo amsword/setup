@@ -16,6 +16,5 @@ protobuf
 ete3
 numpy
 scipy
-torchlars
 nltk
 psutil
