@@ -17,6 +17,6 @@ RUN cd /app && \
     make install
 
 RUN apt-get update
-RUN apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get install ffmpeg libsm6 libxext6 zip -y
 
 RUN rm -rf /var/lib/apt/lists/*
