@@ -150,10 +150,11 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN apt-get install -y iperf
 
 RUN cd /app && \
-    wget https://azcopyvnext.azureedge.net/release20190703/azcopy_linux_amd64_10.2.1.tar.gz -O a.tar.gz && \
+    wget https://azcopyvnext.azureedge.net/release20210415/azcopy_linux_amd64_10.10.0.tar.gz -O a.tar.gz && \
     tar xvzf a.tar.gz && \
-    cp azcopy_linux_amd64_10.2.1/azcopy /usr/bin/ && \
-    rm -rf a.tar.gz azcopy_linux_amd64_10.2.1
+    cp azcopy_linux_amd64_10.10.0/azcopy /usr/bin/ && \
+    chmod +x /usr/bin/azcopy && \
+    rm -rf a.tar.gz azcopy_linux_amd64_10.10.0
 
 RUN pip install ninja cython pyyaml
 RUN cd /app && \

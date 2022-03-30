@@ -18,5 +18,12 @@ RUN cd /app && \
 
 RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6 zip -y
+RUN apt-get install vim tmux -y --fix-missing
+
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get -y install default-jre-headless
+
+RUN pip install dnspython
+RUN conda install -y -c conda-forge gdb
 
 RUN rm -rf /var/lib/apt/lists/*

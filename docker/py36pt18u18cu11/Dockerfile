@@ -46,7 +46,8 @@ RUN apt-get update && apt-get install -y \
 RUN wget -q -O /etc/apt/sources.list.d/mellanox_mlnx_ofed.list https://linux.mellanox.com/public/repo/mlnx_ofed/5.0-1.0.0.0/ubuntu18.04/mellanox_mlnx_ofed.list && \
         wget -qO - http://www.mellanox.com/downloads/ofed/RPM-GPG-KEY-Mellanox | apt-key add - && \
         apt -y update && \
-        apt -y install mlnx-ofed-all
+        apt -y install mlnx-ofed-all && \
+        apt install libibverbs-dev
 
 RUN apt-get -y update && \
     apt-get -y install \

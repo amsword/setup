@@ -85,7 +85,8 @@ ENV LANG en_US.UTF-8
 RUN conda install -y python=3.7
 
 ENV TORCH_CUDA_ARCH_LIST=3.5;5.0+PTX;6.0;6.1;7.0;7.5;8.0
-RUN conda install -y pytorch==1.8.0 torchvision==0.9.0 cudatoolkit=11.1 -c pytorch -c conda-forge
+RUN conda install -y pytorch==1.8.0 torchvision==0.9.0 torchaudio==0.8.0 cudatoolkit=11.1 -c pytorch -c conda-forge
+
 
 
 #RUN conda install -y \
