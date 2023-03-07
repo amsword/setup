@@ -1,4 +1,4 @@
-call neomake#configure#automake('nrwi', 500)
+"call neomake#configure#automake('nrwi', 500)
 
 set nocp
 inoremap jk <ESC>
@@ -138,7 +138,7 @@ let g:neomake_warning_sign = {
     \   'texthl': 'NeomakeWarningSign',
     \ }
 "this should be after augroup my_neomake_signs, or that does not work
-colorscheme solarized
+"colorscheme solarized
 
 nmap <Leader>b :CtrlPBuffer<CR>
 let g:ycm_server_python_interpreter='/usr/bin/python'
@@ -260,3 +260,4 @@ endif
 "autocmd FileType text match Important /\[ip\]/
 "autocmd FileType text syn match Important /\[ip\]/
 "syntax on
+ 
