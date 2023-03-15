@@ -27,7 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get -y install default-jre-headless
 
 RUN pip install dnspython
-RUN conda install -y -c conda-forge gdb
+RUN conda install -y -c conda-forge gdb rsync
 
 RUN rm -rf /var/lib/apt/lists/*
 
