@@ -1,4 +1,4 @@
-"call neomake#configure#automake('nrwi', 500)
+call neomake#configure#automake('nrwi', 500)
 
 set nocp
 inoremap jk <ESC>
@@ -70,6 +70,7 @@ function! Tab_Or_Complete()
 
 nmap ,lcd :lcd %:p:h<CR>
 
+let g:CommandTPreferredImplementation='lua'
 let g:CommandTMaxFiles=500000
 let g:CommandTWildIgnore=&wildignore . ",*.o" . ",*.pyc" . ",*.so" . ",*.png" .
             \ ",*.log" . ",*/output/*" . ",*.d" . ",*/models/*" .
@@ -138,12 +139,10 @@ let g:neomake_warning_sign = {
     \   'texthl': 'NeomakeWarningSign',
     \ }
 "this should be after augroup my_neomake_signs, or that does not work
-"colorscheme solarized
+colorscheme solarized
 
-nmap <Leader>b :CtrlPBuffer<CR>
-let g:ycm_server_python_interpreter='/usr/bin/python'
-
-let g:ctrlp_max_files=0
+"nmap <Leader>b :CtrlPBuffer<CR>
+"let g:ctrlp_max_files=0
 
 set autoread
 
@@ -258,6 +257,26 @@ endif
 
 "autocmd BufRead,BufNewFile *. set filetype=foo
 "autocmd FileType text match Important /\[ip\]/
+"autocmd FileType text match Todo /\[ip\]/
+"
 "autocmd FileType text syn match Important /\[ip\]/
 "syntax on
- 
+set mouse=
+"nnoremap <leader>t <cmd>Telescope find_files<cr>
+nnoremap <leader>t :lua require('telescope.builtin').find_files({previewer = false})<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>b <cmd>Telescope buffers<cr>
+nnoremap <leader>b :lua require('telescope.builtin').buffers({previewer = false})<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+"lua << EOF
+"require'nvim-treesitter.configs'.setup {
+  "ensure_installed = "all",
+  "highlight = {
+    "enable = true,
+  "},
+"}
+"EOF
+autocmd BufRead,BufNewFile *.txt set filetype=txt
+
+

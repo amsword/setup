@@ -23,8 +23,7 @@ nvim +PluginInstall +qall
 
 cd ~/.vim/plugged/YouCompleteMe/ && python install.py
 
-
 # setup the command t
-cd ~/.vim/plugged/command-t/lua/wincent/commandt/lib 
+cd ~/.vim/plugged/command-t/lua/wincent/commandt/lib
 make
 

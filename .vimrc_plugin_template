@@ -1,31 +1,30 @@
 call plug#begin('~/.vim/plugged')
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'neoclide/coc.nvim', {'branch': 'master'}
-"Plug 'gcmt/taboo.vim'
 Plug 'gmarik/Vundle.vim'
-"Plug 'PhilRunninger/nerdtree-visual-selection'
-"Plug 'preservim/nerdtree'
-"Plug 'vim-scripts/Conque-GDB'
 Plug 'altercation/vim-colors-solarized'
-Plug 'amsword/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'oplatek/Conque-Shell'
 Plug 'amsword/comments.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'mkitt/tabline.vim'
 Plug 'SirVer/ultisnips'
-Plug 'amsword/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'szw/vim-maximizer'
-Plug 'vim-scripts/vim-auto-save'
+"Plug 'vim-scripts/vim-auto-save'
+Plug 'Pocco81/auto-save.nvim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'neomake/neomake'
-Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'vim-scripts/Tagbar'
+"Plug 'github/copilot.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'nvie/vim-flake8'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-latex/vim-latex'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Vimjas/vim-python-pep8-indent'
 "Plug 'wincent/command-t'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
